@@ -14,12 +14,12 @@ var TermSearch=React.createClass({
 		};
 	}
 	,showdef:function(e) {
-		var termpos=e.target.value;
+		var termpos=e.target.dataset.idx;
 		actions.showDef(termpos);
 	}
 	,renderItem : function(item) {
 		return <div 
-		style={styles.item} onClick={this.showdef} value={item[1]}>{item[0]}</div>
+		style={styles.item} onClick={this.showdef} data-idx={item[1]}>{item[0]}</div>
 	}
 	,search:function() {
 		var matches=search(this.state.tofind);

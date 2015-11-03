@@ -2077,12 +2077,12 @@ var TermSearch=React.createClass({displayName: "TermSearch",
 		};
 	}
 	,showdef:function(e) {
-		var termpos=e.target.value;
+		var termpos=e.target.dataset.idx;
 		actions.showDef(termpos);
 	}
 	,renderItem : function(item) {
 		return React.createElement("div", {
-		style: styles.item, onClick: this.showdef, value: item[1]}, item[0])
+		style: styles.item, onClick: this.showdef, "data-idx": item[1]}, item[0])
 	}
 	,search:function() {
 		var matches=search(this.state.tofind);
