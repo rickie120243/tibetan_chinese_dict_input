@@ -3,8 +3,8 @@ var actions=require("./actions");
 var store=Reflux.createStore({
 	listenables:actions
 	,data:[]
-	,onShowDef:function(term) {
-		var def=dictdata[0].tdefinitions;
+	,onShowDef:function(termpos) {
+		var def=dictdata[termpos].tdefinitions;
 		this.trigger(def); 
 	}
 });

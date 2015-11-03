@@ -9,15 +9,17 @@ var TermSearch=React.createClass({
 	getInitialState:function() {
 		return {
 			tofind:""
-			,matches:["abc","xyz"]};
+			,matches:[" term1"," term2"]
+			,value:""
+		};
 	}
 	,showdef:function(e) {
-		var term=e.target.innerHTML;
-		actions.showDef(term);
+		var termpos=e.target.value;
+		actions.showDef(termpos);
 	}
 	,renderItem : function(item) {
 		return <div 
-		style={styles.item} onClick={this.showdef}>{item}</div>
+		style={styles.item} onClick={this.showdef} value={item[1]}>{item[0]}</div>
 	}
 	,search:function() {
 		var matches=search(this.state.tofind);

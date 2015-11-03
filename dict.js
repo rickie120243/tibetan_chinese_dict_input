@@ -3959,12 +3959,12 @@ dictdata=[ {
   "tdefinitions" : [ {
     "cdefinitions" : [ {
       "abbreviations" : [ "藻", "", "" ],
-      "cdef" : "日聚 abc。fdfsddffdf",
+      "cdef" : "日聚",
       "note" : "",
-      "synonyms" : [ "", "", "ddddddd" ]
+      "synonyms" : [ "", "", "" ]
     }, {
       "abbreviations" : [ "", "", "" ],
-      "cdef" : "月，月份。abc",
+      "cdef" : "月，月份。",
       "note" : "",
       "synonyms" : [ "", "", "" ]
     } ],

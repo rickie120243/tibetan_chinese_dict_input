@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\downloader.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\downloader.js":[function(require,module,exports){
 
 var userCancel=false;
 var files=[];
@@ -107,7 +107,7 @@ var downloadingFile=function() {
 var downloader={startDownload:startDownload, downloadedByte:downloadedByte,
 	downloadingFile:downloadingFile, cancelDownload:cancelDownload,doneDownload:doneDownload};
 module.exports=downloader;
-},{"./mkdirp":"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\mkdirp.js","fs":false,"http":false,"path":false}],"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\html5fs.js":[function(require,module,exports){
+},{"./mkdirp":"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\mkdirp.js","fs":false,"http":false,"path":false}],"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\html5fs.js":[function(require,module,exports){
 /* emulate filesystem on html5 browser */
 var get_head=function(url,field,cb){
 	var xhr = new XMLHttpRequest();
@@ -361,7 +361,7 @@ var API={
 }
 module.exports=API;
 
-},{}],"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\ksanagap.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\ksanagap.js":[function(require,module,exports){
 var appname="installer";
 if (typeof ksana=="undefined") {
 	window.ksana={platform:"chrome"};
@@ -447,16 +447,12 @@ var boot=function(appId,cb) {
 		loadKsanajs();
 	}
 	ksana.appId=appId;
-	if (ksana.ready) {
-		cb();
-		return;
-	}
 	var timer=setInterval(function(){
 			if (ksana.ready){
 				clearInterval(timer);
 				cb();
 			}
-		},100);
+		});
 }
 
 
@@ -476,7 +472,7 @@ var ksanagap={
 	boot:boot
 }
 module.exports=ksanagap;
-},{"./downloader":"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\downloader.js","fs":false,"path":false}],"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\livereload.js":[function(require,module,exports){
+},{"./downloader":"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\downloader.js","fs":false,"path":false}],"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\livereload.js":[function(require,module,exports){
 var started=false;
 var timer=null;
 var bundledate=null;
@@ -501,7 +497,7 @@ var livereload=function() {
 }
 
 module.exports=livereload;
-},{"./html5fs":"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\html5fs.js"}],"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\mkdirp.js":[function(require,module,exports){
+},{"./html5fs":"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\html5fs.js"}],"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\mkdirp.js":[function(require,module,exports){
 function mkdirP (p, mode, f, made) {
      var path = nodeRequire('path');
      var fs = nodeRequire('fs');
@@ -587,11 +583,21 @@ mkdirP.sync = function sync (p, mode, made) {
 
 module.exports = mkdirP.mkdirp = mkdirP.mkdirP = mkdirP;
 
-},{}],"C:\\ksana2015\\node_modules\\reflux\\index.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\node_modules\\reflux\\index.js":[function(require,module,exports){
 module.exports = require('./src');
 
-},{"./src":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js"}],"C:\\ksana2015\\node_modules\\reflux\\node_modules\\eventemitter3\\index.js":[function(require,module,exports){
+},{"./src":"D:\\ksana2015\\node_modules\\reflux\\src\\index.js"}],"D:\\ksana2015\\node_modules\\reflux\\node_modules\\eventemitter3\\index.js":[function(require,module,exports){
 'use strict';
+
+//
+// We store our EE objects in a plain object whose properties are event names.
+// If `Object.create(null)` is not supported we prefix the event names with a
+// `~` to make sure that the built-in object properties are not overridden or
+// used as an attack vector.
+// We also assume that `Object.create(null)` is available when the event name
+// is an ES6 Symbol.
+//
+var prefix = typeof Object.create !== 'function' ? '~' : false;
 
 /**
  * Representation of a single EventEmitter function.
@@ -628,15 +634,20 @@ EventEmitter.prototype._events = undefined;
  * Return a list of assigned event listeners.
  *
  * @param {String} event The events that should be listed.
- * @returns {Array}
+ * @param {Boolean} exists We only need to know if there are listeners.
+ * @returns {Array|Boolean}
  * @api public
  */
-EventEmitter.prototype.listeners = function listeners(event) {
-  if (!this._events || !this._events[event]) return [];
-  if (this._events[event].fn) return [this._events[event].fn];
+EventEmitter.prototype.listeners = function listeners(event, exists) {
+  var evt = prefix ? prefix + event : event
+    , available = this._events && this._events[evt];
 
-  for (var i = 0, l = this._events[event].length, ee = new Array(l); i < l; i++) {
-    ee[i] = this._events[event][i].fn;
+  if (exists) return !!available;
+  if (!available) return [];
+  if (available.fn) return [available.fn];
+
+  for (var i = 0, l = available.length, ee = new Array(l); i < l; i++) {
+    ee[i] = available[i].fn;
   }
 
   return ee;
@@ -650,15 +661,17 @@ EventEmitter.prototype.listeners = function listeners(event) {
  * @api public
  */
 EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  if (!this._events || !this._events[event]) return false;
+  var evt = prefix ? prefix + event : event;
 
-  var listeners = this._events[event]
+  if (!this._events || !this._events[evt]) return false;
+
+  var listeners = this._events[evt]
     , len = arguments.length
     , args
     , i;
 
   if ('function' === typeof listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, true);
+    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
 
     switch (len) {
       case 1: return listeners.fn.call(listeners.context), true;
@@ -679,7 +692,7 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
       , j;
 
     for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, true);
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
 
       switch (len) {
         case 1: listeners[i].fn.call(listeners[i].context); break;
@@ -707,14 +720,15 @@ EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
  * @api public
  */
 EventEmitter.prototype.on = function on(event, fn, context) {
-  var listener = new EE(fn, context || this);
+  var listener = new EE(fn, context || this)
+    , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = {};
-  if (!this._events[event]) this._events[event] = listener;
+  if (!this._events) this._events = prefix ? {} : Object.create(null);
+  if (!this._events[evt]) this._events[evt] = listener;
   else {
-    if (!this._events[event].fn) this._events[event].push(listener);
-    else this._events[event] = [
-      this._events[event], listener
+    if (!this._events[evt].fn) this._events[evt].push(listener);
+    else this._events[evt] = [
+      this._events[evt], listener
     ];
   }
 
@@ -730,14 +744,15 @@ EventEmitter.prototype.on = function on(event, fn, context) {
  * @api public
  */
 EventEmitter.prototype.once = function once(event, fn, context) {
-  var listener = new EE(fn, context || this, true);
+  var listener = new EE(fn, context || this, true)
+    , evt = prefix ? prefix + event : event;
 
-  if (!this._events) this._events = {};
-  if (!this._events[event]) this._events[event] = listener;
+  if (!this._events) this._events = prefix ? {} : Object.create(null);
+  if (!this._events[evt]) this._events[evt] = listener;
   else {
-    if (!this._events[event].fn) this._events[event].push(listener);
-    else this._events[event] = [
-      this._events[event], listener
+    if (!this._events[evt].fn) this._events[evt].push(listener);
+    else this._events[evt] = [
+      this._events[evt], listener
     ];
   }
 
@@ -749,22 +764,36 @@ EventEmitter.prototype.once = function once(event, fn, context) {
  *
  * @param {String} event The event we want to remove.
  * @param {Function} fn The listener that we need to find.
+ * @param {Mixed} context Only remove listeners matching this context.
  * @param {Boolean} once Only remove once listeners.
  * @api public
  */
-EventEmitter.prototype.removeListener = function removeListener(event, fn, once) {
-  if (!this._events || !this._events[event]) return this;
+EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+  var evt = prefix ? prefix + event : event;
 
-  var listeners = this._events[event]
+  if (!this._events || !this._events[evt]) return this;
+
+  var listeners = this._events[evt]
     , events = [];
 
   if (fn) {
-    if (listeners.fn && (listeners.fn !== fn || (once && !listeners.once))) {
-      events.push(listeners);
-    }
-    if (!listeners.fn) for (var i = 0, length = listeners.length; i < length; i++) {
-      if (listeners[i].fn !== fn || (once && !listeners[i].once)) {
-        events.push(listeners[i]);
+    if (listeners.fn) {
+      if (
+           listeners.fn !== fn
+        || (once && !listeners.once)
+        || (context && listeners.context !== context)
+      ) {
+        events.push(listeners);
+      }
+    } else {
+      for (var i = 0, length = listeners.length; i < length; i++) {
+        if (
+             listeners[i].fn !== fn
+          || (once && !listeners[i].once)
+          || (context && listeners[i].context !== context)
+        ) {
+          events.push(listeners[i]);
+        }
       }
     }
   }
@@ -773,9 +802,9 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, once)
   // Reset the array, or remove it completely if we have no more listeners.
   //
   if (events.length) {
-    this._events[event] = events.length === 1 ? events[0] : events;
+    this._events[evt] = events.length === 1 ? events[0] : events;
   } else {
-    delete this._events[event];
+    delete this._events[evt];
   }
 
   return this;
@@ -790,8 +819,8 @@ EventEmitter.prototype.removeListener = function removeListener(event, fn, once)
 EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
   if (!this._events) return this;
 
-  if (event) delete this._events[event];
-  else this._events = {};
+  if (event) delete this._events[prefix ? prefix + event : event];
+  else this._events = prefix ? {} : Object.create(null);
 
   return this;
 };
@@ -810,25 +839,18 @@ EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
 };
 
 //
-// Expose the module.
+// Expose the prefix.
 //
-EventEmitter.EventEmitter = EventEmitter;
-EventEmitter.EventEmitter2 = EventEmitter;
-EventEmitter.EventEmitter3 = EventEmitter;
+EventEmitter.prefixed = prefix;
 
 //
 // Expose the module.
 //
-module.exports = EventEmitter;
+if ('undefined' !== typeof module) {
+  module.exports = EventEmitter;
+}
 
-},{}],"C:\\ksana2015\\node_modules\\reflux\\node_modules\\native-promise-only\\npo.js":[function(require,module,exports){
-/*! Native Promise Only
-    v0.7.6-a (c) Kyle Simpson
-    MIT License: http://getify.mit-license.org
-*/
-!function(t,n,e){n[t]=n[t]||e(),"undefined"!=typeof module&&module.exports?module.exports=n[t]:"function"==typeof define&&define.amd&&define(function(){return n[t]})}("Promise","undefined"!=typeof global?global:this,function(){"use strict";function t(t,n){l.add(t,n),h||(h=y(l.drain))}function n(t){var n,e=typeof t;return null==t||"object"!=e&&"function"!=e||(n=t.then),"function"==typeof n?n:!1}function e(){for(var t=0;t<this.chain.length;t++)o(this,1===this.state?this.chain[t].success:this.chain[t].failure,this.chain[t]);this.chain.length=0}function o(t,e,o){var r,i;try{e===!1?o.reject(t.msg):(r=e===!0?t.msg:e.call(void 0,t.msg),r===o.promise?o.reject(TypeError("Promise-chain cycle")):(i=n(r))?i.call(r,o.resolve,o.reject):o.resolve(r))}catch(c){o.reject(c)}}function r(o){var c,u,a=this;if(!a.triggered){a.triggered=!0,a.def&&(a=a.def);try{(c=n(o))?(u=new f(a),c.call(o,function(){r.apply(u,arguments)},function(){i.apply(u,arguments)})):(a.msg=o,a.state=1,a.chain.length>0&&t(e,a))}catch(s){i.call(u||new f(a),s)}}}function i(n){var o=this;o.triggered||(o.triggered=!0,o.def&&(o=o.def),o.msg=n,o.state=2,o.chain.length>0&&t(e,o))}function c(t,n,e,o){for(var r=0;r<n.length;r++)!function(r){t.resolve(n[r]).then(function(t){e(r,t)},o)}(r)}function f(t){this.def=t,this.triggered=!1}function u(t){this.promise=t,this.state=0,this.triggered=!1,this.chain=[],this.msg=void 0}function a(n){if("function"!=typeof n)throw TypeError("Not a function");if(0!==this.__NPO__)throw TypeError("Not a promise");this.__NPO__=1;var o=new u(this);this.then=function(n,r){var i={success:"function"==typeof n?n:!0,failure:"function"==typeof r?r:!1};return i.promise=new this.constructor(function(t,n){if("function"!=typeof t||"function"!=typeof n)throw TypeError("Not a function");i.resolve=t,i.reject=n}),o.chain.push(i),0!==o.state&&t(e,o),i.promise},this["catch"]=function(t){return this.then(void 0,t)};try{n.call(void 0,function(t){r.call(o,t)},function(t){i.call(o,t)})}catch(c){i.call(o,c)}}var s,h,l,p=Object.prototype.toString,y="undefined"!=typeof setImmediate?function(t){return setImmediate(t)}:setTimeout;try{Object.defineProperty({},"x",{}),s=function(t,n,e,o){return Object.defineProperty(t,n,{value:e,writable:!0,configurable:o!==!1})}}catch(d){s=function(t,n,e){return t[n]=e,t}}l=function(){function t(t,n){this.fn=t,this.self=n,this.next=void 0}var n,e,o;return{add:function(r,i){o=new t(r,i),e?e.next=o:n=o,e=o,o=void 0},drain:function(){var t=n;for(n=e=h=void 0;t;)t.fn.call(t.self),t=t.next}}}();var g=s({},"constructor",a,!1);return s(a,"prototype",g,!1),s(g,"__NPO__",0,!1),s(a,"resolve",function(t){var n=this;return t&&"object"==typeof t&&1===t.__NPO__?t:new n(function(n,e){if("function"!=typeof n||"function"!=typeof e)throw TypeError("Not a function");n(t)})}),s(a,"reject",function(t){return new this(function(n,e){if("function"!=typeof n||"function"!=typeof e)throw TypeError("Not a function");e(t)})}),s(a,"all",function(t){var n=this;return"[object Array]"!=p.call(t)?n.reject(TypeError("Not an array")):0===t.length?n.resolve([]):new n(function(e,o){if("function"!=typeof e||"function"!=typeof o)throw TypeError("Not a function");var r=t.length,i=Array(r),f=0;c(n,t,function(t,n){i[t]=n,++f===r&&e(i)},o)})}),s(a,"race",function(t){var n=this;return"[object Array]"!=p.call(t)?n.reject(TypeError("Not an array")):new n(function(e,o){if("function"!=typeof e||"function"!=typeof o)throw TypeError("Not a function");c(n,t,function(t,n){e(n)},o)})}),a});
-
-},{}],"C:\\ksana2015\\node_modules\\reflux\\src\\ActionMethods.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\node_modules\\reflux\\src\\ActionMethods.js":[function(require,module,exports){
 /**
  * A module of methods that you want to include in all actions.
  * This module is consumed by `createAction`.
@@ -836,7 +858,7 @@ module.exports = EventEmitter;
 module.exports = {
 };
 
-},{}],"C:\\ksana2015\\node_modules\\reflux\\src\\Keep.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\node_modules\\reflux\\src\\Keep.js":[function(require,module,exports){
 exports.createdStores = [];
 
 exports.createdActions = [];
@@ -850,7 +872,7 @@ exports.reset = function() {
     }
 };
 
-},{}],"C:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js":[function(require,module,exports){
 var _ = require('./utils'),
     maker = require('./joins').instanceJoinCreator;
 
@@ -1072,7 +1094,7 @@ module.exports = {
     joinStrict: maker("strict")
 };
 
-},{"./joins":"C:\\ksana2015\\node_modules\\reflux\\src\\joins.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\ListenerMixin.js":[function(require,module,exports){
+},{"./joins":"D:\\ksana2015\\node_modules\\reflux\\src\\joins.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMixin.js":[function(require,module,exports){
 var _ = require('./utils'),
     ListenerMethods = require('./ListenerMethods');
 
@@ -1091,7 +1113,7 @@ module.exports = _.extend({
 
 }, ListenerMethods);
 
-},{"./ListenerMethods":"C:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\PublisherMethods.js":[function(require,module,exports){
+},{"./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\PublisherMethods.js":[function(require,module,exports){
 var _ = require('./utils');
 
 /**
@@ -1274,7 +1296,7 @@ module.exports = {
     }
 };
 
-},{"./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\StoreMethods.js":[function(require,module,exports){
+},{"./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\StoreMethods.js":[function(require,module,exports){
 /**
  * A module of methods that you want to include in all stores.
  * This module is consumed by `createStore`.
@@ -1282,7 +1304,7 @@ module.exports = {
 module.exports = {
 };
 
-},{}],"C:\\ksana2015\\node_modules\\reflux\\src\\bindMethods.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\node_modules\\reflux\\src\\bindMethods.js":[function(require,module,exports){
 module.exports = function(store, definition) {
   for (var name in definition) {
     if (Object.getOwnPropertyDescriptor && Object.defineProperty) {
@@ -1307,8 +1329,9 @@ module.exports = function(store, definition) {
   return store;
 };
 
-},{}],"C:\\ksana2015\\node_modules\\reflux\\src\\connect.js":[function(require,module,exports){
-var Reflux = require('./index'),
+},{}],"D:\\ksana2015\\node_modules\\reflux\\src\\connect.js":[function(require,module,exports){
+var ListenerMethods = require('./ListenerMethods'),
+    ListenerMixin = require('./ListenerMixin'),
     _ = require('./utils');
 
 module.exports = function(listenable,key){
@@ -1323,17 +1346,22 @@ module.exports = function(listenable,key){
             }
         },
         componentDidMount: function(){
-            _.extend(this,Reflux.ListenerMethods);
-            var me = this, cb = (key === undefined ? this.setState : function(v){me.setState(_.object([key],[v]));});
+            _.extend(this,ListenerMethods);
+            var me = this, cb = (key === undefined ? this.setState : function(v){
+                if (typeof me.isMounted === "undefined" || me.isMounted() === true) {
+                    me.setState(_.object([key],[v]));
+                }
+            });
             this.listenTo(listenable,cb);
         },
-        componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
+        componentWillUnmount: ListenerMixin.componentWillUnmount
     };
 };
 
-},{"./index":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\connectFilter.js":[function(require,module,exports){
-var Reflux = require('./index'),
-  _ = require('./utils');
+},{"./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./ListenerMixin":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMixin.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\connectFilter.js":[function(require,module,exports){
+var ListenerMethods = require('./ListenerMethods'),
+    ListenerMixin = require('./ListenerMixin'),
+    _ = require('./utils');
 
 module.exports = function(listenable, key, filterFunc) {
     filterFunc = _.isFunction(key) ? key : filterFunc;
@@ -1346,15 +1374,15 @@ module.exports = function(listenable, key, filterFunc) {
             } else {
                 // Filter initial payload from store.
                 var result = filterFunc.call(this, listenable.getInitialState());
-                if (result) {
-                  return _.object([key], [result]);
+                if (typeof(result) !== "undefined") {
+                    return _.object([key], [result]);
                 } else {
-                  return {};
+                    return {};
                 }
             }
         },
         componentDidMount: function() {
-            _.extend(this, Reflux.ListenerMethods);
+            _.extend(this, ListenerMethods);
             var me = this;
             var cb = function(value) {
                 if (_.isFunction(key)) {
@@ -1367,14 +1395,15 @@ module.exports = function(listenable, key, filterFunc) {
 
             this.listenTo(listenable, cb);
         },
-        componentWillUnmount: Reflux.ListenerMixin.componentWillUnmount
+        componentWillUnmount: ListenerMixin.componentWillUnmount
     };
 };
 
 
-},{"./index":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\createAction.js":[function(require,module,exports){
+},{"./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./ListenerMixin":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMixin.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\createAction.js":[function(require,module,exports){
 var _ = require('./utils'),
-    Reflux = require('./index'),
+    ActionMethods = require('./ActionMethods'),
+    PublisherMethods = require('./PublisherMethods'),
     Keep = require('./Keep'),
     allowed = {preEmit:1,shouldEmit:1};
 
@@ -1392,8 +1421,8 @@ var createAction = function(definition) {
         definition = {actionName: definition};
     }
 
-    for(var a in Reflux.ActionMethods){
-        if (!allowed[a] && Reflux.PublisherMethods[a]) {
+    for(var a in ActionMethods){
+        if (!allowed[a] && PublisherMethods[a]) {
             throw new Error("Cannot override API method " + a +
                 " in Reflux.ActionMethods. Use another method name or override it on Reflux.PublisherMethods instead."
             );
@@ -1401,7 +1430,7 @@ var createAction = function(definition) {
     }
 
     for(var d in definition){
-        if (!allowed[d] && Reflux.PublisherMethods[d]) {
+        if (!allowed[d] && PublisherMethods[d]) {
             throw new Error("Cannot override API method " + d +
                 " in action creation. Use another method name or override it on Reflux.PublisherMethods instead."
             );
@@ -1423,10 +1452,12 @@ var createAction = function(definition) {
         eventLabel: "action",
         emitter: new _.EventEmitter(),
         _isAction: true
-    }, Reflux.PublisherMethods, Reflux.ActionMethods, definition);
+    }, PublisherMethods, ActionMethods, definition);
 
     var functor = function() {
-        return functor[functor.sync?"trigger":"triggerPromise"].apply(functor, arguments);
+        var triggerType = functor.sync ? "trigger" :
+            ( _.environment.hasPromise ? "triggerPromise" : "triggerAsync" );
+        return functor[triggerType].apply(functor, arguments);
     };
 
     _.extend(functor,childActions,context);
@@ -1439,9 +1470,8 @@ var createAction = function(definition) {
 
 module.exports = createAction;
 
-},{"./Keep":"C:\\ksana2015\\node_modules\\reflux\\src\\Keep.js","./index":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\createStore.js":[function(require,module,exports){
+},{"./ActionMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ActionMethods.js","./Keep":"D:\\ksana2015\\node_modules\\reflux\\src\\Keep.js","./PublisherMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\PublisherMethods.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\createStore.js":[function(require,module,exports){
 var _ = require('./utils'),
-    Reflux = require('./index'),
     Keep = require('./Keep'),
     mixer = require('./mixer'),
     allowed = {preEmit:1,shouldEmit:1},
@@ -1457,10 +1487,14 @@ var _ = require('./utils'),
  */
 module.exports = function(definition) {
 
+    var StoreMethods = require('./StoreMethods'),
+        PublisherMethods = require('./PublisherMethods'),
+        ListenerMethods = require('./ListenerMethods');
+
     definition = definition || {};
 
-    for(var a in Reflux.StoreMethods){
-        if (!allowed[a] && (Reflux.PublisherMethods[a] || Reflux.ListenerMethods[a])){
+    for(var a in StoreMethods){
+        if (!allowed[a] && (PublisherMethods[a] || ListenerMethods[a])){
             throw new Error("Cannot override API method " + a +
                 " in Reflux.StoreMethods. Use another method name or override it on Reflux.PublisherMethods / Reflux.ListenerMethods instead."
             );
@@ -1468,7 +1502,7 @@ module.exports = function(definition) {
     }
 
     for(var d in definition){
-        if (!allowed[d] && (Reflux.PublisherMethods[d] || Reflux.ListenerMethods[d])){
+        if (!allowed[d] && (PublisherMethods[d] || ListenerMethods[d])){
             throw new Error("Cannot override API method " + d +
                 " in store creation. Use another method name or override it on Reflux.PublisherMethods / Reflux.ListenerMethods instead."
             );
@@ -1494,7 +1528,7 @@ module.exports = function(definition) {
         }
     }
 
-    _.extend(Store.prototype, Reflux.ListenerMethods, Reflux.PublisherMethods, Reflux.StoreMethods, definition);
+    _.extend(Store.prototype, ListenerMethods, PublisherMethods, StoreMethods, definition);
 
     var store = new Store();
     Keep.createdStores.push(store);
@@ -1502,7 +1536,7 @@ module.exports = function(definition) {
     return store;
 };
 
-},{"./Keep":"C:\\ksana2015\\node_modules\\reflux\\src\\Keep.js","./bindMethods":"C:\\ksana2015\\node_modules\\reflux\\src\\bindMethods.js","./index":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js","./mixer":"C:\\ksana2015\\node_modules\\reflux\\src\\mixer.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\index.js":[function(require,module,exports){
+},{"./Keep":"D:\\ksana2015\\node_modules\\reflux\\src\\Keep.js","./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./PublisherMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\PublisherMethods.js","./StoreMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\StoreMethods.js","./bindMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\bindMethods.js","./mixer":"D:\\ksana2015\\node_modules\\reflux\\src\\mixer.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\index.js":[function(require,module,exports){
 exports.ActionMethods = require('./ActionMethods');
 
 exports.ListenerMethods = require('./ListenerMethods');
@@ -1536,7 +1570,7 @@ exports.joinStrict = maker("strict");
 
 exports.joinConcat = maker("all");
 
-var _ = require('./utils');
+var _ = exports.utils = require('./utils');
 
 exports.EventEmitter = _.EventEmitter;
 
@@ -1565,7 +1599,6 @@ exports.createActions = function(definitions) {
  * Sets the eventmitter that Reflux uses
  */
 exports.setEventEmitter = function(ctx) {
-    var _ = require('./utils');
     exports.EventEmitter = _.EventEmitter = ctx;
 };
 
@@ -1574,7 +1607,6 @@ exports.setEventEmitter = function(ctx) {
  * Sets the Promise library that Reflux uses
  */
 exports.setPromise = function(ctx) {
-    var _ = require('./utils');
     exports.Promise = _.Promise = ctx;
 };
 
@@ -1584,7 +1616,6 @@ exports.setPromise = function(ctx) {
  * @param {Function} factory has the signature `function(resolver) { return [new Promise]; }`
  */
 exports.setPromiseFactory = function(factory) {
-    var _ = require('./utils');
     _.createPromise = factory;
 };
 
@@ -1593,7 +1624,6 @@ exports.setPromiseFactory = function(factory) {
  * Sets the method used for deferring actions and stores
  */
 exports.nextTick = function(nextTick) {
-    var _ = require('./utils');
     _.nextTick = nextTick;
 };
 
@@ -1613,7 +1643,7 @@ if (!Function.prototype.bind) {
   );
 }
 
-},{"./ActionMethods":"C:\\ksana2015\\node_modules\\reflux\\src\\ActionMethods.js","./Keep":"C:\\ksana2015\\node_modules\\reflux\\src\\Keep.js","./ListenerMethods":"C:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./ListenerMixin":"C:\\ksana2015\\node_modules\\reflux\\src\\ListenerMixin.js","./PublisherMethods":"C:\\ksana2015\\node_modules\\reflux\\src\\PublisherMethods.js","./StoreMethods":"C:\\ksana2015\\node_modules\\reflux\\src\\StoreMethods.js","./connect":"C:\\ksana2015\\node_modules\\reflux\\src\\connect.js","./connectFilter":"C:\\ksana2015\\node_modules\\reflux\\src\\connectFilter.js","./createAction":"C:\\ksana2015\\node_modules\\reflux\\src\\createAction.js","./createStore":"C:\\ksana2015\\node_modules\\reflux\\src\\createStore.js","./joins":"C:\\ksana2015\\node_modules\\reflux\\src\\joins.js","./listenTo":"C:\\ksana2015\\node_modules\\reflux\\src\\listenTo.js","./listenToMany":"C:\\ksana2015\\node_modules\\reflux\\src\\listenToMany.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\joins.js":[function(require,module,exports){
+},{"./ActionMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ActionMethods.js","./Keep":"D:\\ksana2015\\node_modules\\reflux\\src\\Keep.js","./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js","./ListenerMixin":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMixin.js","./PublisherMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\PublisherMethods.js","./StoreMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\StoreMethods.js","./connect":"D:\\ksana2015\\node_modules\\reflux\\src\\connect.js","./connectFilter":"D:\\ksana2015\\node_modules\\reflux\\src\\connectFilter.js","./createAction":"D:\\ksana2015\\node_modules\\reflux\\src\\createAction.js","./createStore":"D:\\ksana2015\\node_modules\\reflux\\src\\createStore.js","./joins":"D:\\ksana2015\\node_modules\\reflux\\src\\joins.js","./listenTo":"D:\\ksana2015\\node_modules\\reflux\\src\\listenTo.js","./listenToMany":"D:\\ksana2015\\node_modules\\reflux\\src\\listenToMany.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\joins.js":[function(require,module,exports){
 /**
  * Internal module used to create static and instance join methods
  */
@@ -1651,7 +1681,7 @@ exports.staticJoinCreator = function(strategy){
  */
 exports.instanceJoinCreator = function(strategy){
     return function(/* listenables..., callback*/){
-        _.throwIf(arguments.length < 3,'Cannot create a join with less than 2 listenables!');
+        _.throwIf(arguments.length < 2,'Cannot create a join with less than 2 listenables!');
         var listenables = slice.call(arguments),
             callback = listenables.pop(),
             numberOfListenables = listenables.length,
@@ -1721,9 +1751,8 @@ function emitIfAllListenablesEmitted(join) {
     reset(join);
 }
 
-},{"./createStore":"C:\\ksana2015\\node_modules\\reflux\\src\\createStore.js","./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\listenTo.js":[function(require,module,exports){
-var Reflux = require('./index');
-
+},{"./createStore":"D:\\ksana2015\\node_modules\\reflux\\src\\createStore.js","./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\listenTo.js":[function(require,module,exports){
+var ListenerMethods = require('./ListenerMethods');
 
 /**
  * A mixin factory for a React component. Meant as a more convenient way of using the `ListenerMixin`,
@@ -1742,12 +1771,12 @@ module.exports = function(listenable,callback,initial){
          * and then make the call to `listenTo` with the arguments provided to the factory function
          */
         componentDidMount: function() {
-            for(var m in Reflux.ListenerMethods){
-                if (this[m] !== Reflux.ListenerMethods[m]){
+            for(var m in ListenerMethods){
+                if (this[m] !== ListenerMethods[m]){
                     if (this[m]){
                         throw "Can't have other property '"+m+"' when using Reflux.listenTo!";
                     }
-                    this[m] = Reflux.ListenerMethods[m];
+                    this[m] = ListenerMethods[m];
                 }
             }
             this.listenTo(listenable,callback,initial);
@@ -1755,12 +1784,12 @@ module.exports = function(listenable,callback,initial){
         /**
          * Cleans up all listener previously registered.
          */
-        componentWillUnmount: Reflux.ListenerMethods.stopListeningToAll
+        componentWillUnmount: ListenerMethods.stopListeningToAll
     };
 };
 
-},{"./index":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\listenToMany.js":[function(require,module,exports){
-var Reflux = require('./index');
+},{"./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\listenToMany.js":[function(require,module,exports){
+var ListenerMethods = require('./ListenerMethods');
 
 /**
  * A mixin factory for a React component. Meant as a more convenient way of using the `listenerMixin`,
@@ -1777,12 +1806,12 @@ module.exports = function(listenables){
          * and then make the call to `listenTo` with the arguments provided to the factory function
          */
         componentDidMount: function() {
-            for(var m in Reflux.ListenerMethods){
-                if (this[m] !== Reflux.ListenerMethods[m]){
+            for(var m in ListenerMethods){
+                if (this[m] !== ListenerMethods[m]){
                     if (this[m]){
                         throw "Can't have other property '"+m+"' when using Reflux.listenToMany!";
                     }
-                    this[m] = Reflux.ListenerMethods[m];
+                    this[m] = ListenerMethods[m];
                 }
             }
             this.listenToMany(listenables);
@@ -1790,11 +1819,11 @@ module.exports = function(listenables){
         /**
          * Cleans up all listener previously registered.
          */
-        componentWillUnmount: Reflux.ListenerMethods.stopListeningToAll
+        componentWillUnmount: ListenerMethods.stopListeningToAll
     };
 };
 
-},{"./index":"C:\\ksana2015\\node_modules\\reflux\\src\\index.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\mixer.js":[function(require,module,exports){
+},{"./ListenerMethods":"D:\\ksana2015\\node_modules\\reflux\\src\\ListenerMethods.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\mixer.js":[function(require,module,exports){
 var _ = require('./utils');
 
 module.exports = function mix(def) {
@@ -1853,7 +1882,33 @@ module.exports = function mix(def) {
     return updated;
 };
 
-},{"./utils":"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"C:\\ksana2015\\node_modules\\reflux\\src\\utils.js":[function(require,module,exports){
+},{"./utils":"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js"}],"D:\\ksana2015\\node_modules\\reflux\\src\\utils.js":[function(require,module,exports){
+exports.capitalize = function(string){
+    return string.charAt(0).toUpperCase()+string.slice(1);
+};
+
+exports.callbackName = function(string, prefix){
+    prefix = prefix || "on";
+    return prefix + exports.capitalize(string);
+};
+
+var env = exports.environment = {};
+
+function checkEnv(target) {
+    var flag = false;
+    try {
+        if (eval(target)) { // jshint ignore:line
+            flag = true;
+        }
+    }
+    catch (e) {
+        /* no-op */
+    }
+    env[exports.callbackName(target, "has")] = flag;
+}
+checkEnv("setImmediate");
+checkEnv("Promise");
+
 /*
  * isObject, extend, isFunction, isArguments are taken from undescore/lodash in
  * order to remove the dependency
@@ -1888,31 +1943,33 @@ exports.isFunction = function(value) {
 
 exports.EventEmitter = require('eventemitter3');
 
-exports.nextTick = function(callback) {
-    setTimeout(callback, 0);
-};
-
-exports.capitalize = function(string){
-    return string.charAt(0).toUpperCase()+string.slice(1);
-};
-
-exports.callbackName = function(string){
-    return "on"+exports.capitalize(string);
-};
+if (env.hasSetImmediate) {
+    exports.nextTick = function(callback) {
+        setImmediate(callback);
+    };
+} else {
+    exports.nextTick = function(callback) {
+        setTimeout(callback, 0);
+    };
+}
 
 exports.object = function(keys,vals){
     var o={}, i=0;
-    for(;i<keys.length;i++){
+    for(;i < keys.length; i++){
         o[keys[i]] = vals[i];
     }
     return o;
 };
 
-exports.Promise = require("native-promise-only");
-
-exports.createPromise = function(resolver) {
-    return new exports.Promise(resolver);
-};
+if (env.hasPromise) {
+    exports.Promise = Promise;
+    exports.createPromise = function(resolver) {
+        return new exports.Promise(resolver);
+    };
+} else {
+    exports.Promise = null;
+    exports.createPromise = function() {};
+}
 
 exports.isArguments = function(value) {
     return typeof value === 'object' && ('callee' in value) && typeof value.length === 'number';
@@ -1924,7 +1981,7 @@ exports.throwIf = function(val,msg){
     }
 };
 
-},{"eventemitter3":"C:\\ksana2015\\node_modules\\reflux\\node_modules\\eventemitter3\\index.js","native-promise-only":"C:\\ksana2015\\node_modules\\reflux\\node_modules\\native-promise-only\\npo.js"}],"C:\\ksana2015\\tibetan_chinese_dict_input\\index.js":[function(require,module,exports){
+},{"eventemitter3":"D:\\ksana2015\\node_modules\\reflux\\node_modules\\eventemitter3\\index.js"}],"D:\\ksana2015\\tibetan_chinese_dict_react\\index.js":[function(require,module,exports){
 var React=require("react");
 if(window.location.origin.indexOf("//127.0.0.1")>-1) {
 	require("ksana2015-webruntime/livereload")(); 
@@ -1934,13 +1991,13 @@ ksanagap.boot("tibetan_chinese_dict_input",function(){
 	var Main=React.createElement(require("./src/main.jsx"));
 	ksana.mainComponent=React.render(Main,document.getElementById("main"));
 });
-},{"./src/main.jsx":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\main.jsx","ksana2015-webruntime/ksanagap":"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\ksanagap.js","ksana2015-webruntime/livereload":"C:\\ksana2015\\node_modules\\ksana2015-webruntime\\livereload.js","react":"react"}],"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\actions.js":[function(require,module,exports){
+},{"./src/main.jsx":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\main.jsx","ksana2015-webruntime/ksanagap":"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\ksanagap.js","ksana2015-webruntime/livereload":"D:\\ksana2015\\node_modules\\ksana2015-webruntime\\livereload.js","react":"react"}],"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\actions.js":[function(require,module,exports){
 var Reflux=require("reflux");
 var actions=Reflux.createActions([
 	"showDef"
 ]);
 module.exports=actions;
-},{"reflux":"C:\\ksana2015\\node_modules\\reflux\\index.js"}],"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\definitions.js":[function(require,module,exports){
+},{"reflux":"D:\\ksana2015\\node_modules\\reflux\\index.js"}],"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\definitions.js":[function(require,module,exports){
 var React=require("react");
 var Reflux=require("reflux");
 var store=require("./store");
@@ -1958,7 +2015,7 @@ var Definitions=React.createClass({displayName: "Definitions",
 	}
 })
 module.exports=Definitions;
-},{"./store":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\store.js","react":"react","reflux":"C:\\ksana2015\\node_modules\\reflux\\index.js"}],"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\main.jsx":[function(require,module,exports){
+},{"./store":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\store.js","react":"react","reflux":"D:\\ksana2015\\node_modules\\reflux\\index.js"}],"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\main.jsx":[function(require,module,exports){
 var React=require("react");
 var TermSearch=require("./termsearch");
 var Definitions=require("./definitions");
@@ -1980,30 +2037,30 @@ var Maincomponent = React.createClass({displayName: "Maincomponent",
   }
 });
 module.exports=Maincomponent;
-},{"./definitions":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\definitions.js","./termsearch":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\termsearch.js","react":"react"}],"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\search.js":[function(require,module,exports){
+},{"./definitions":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\definitions.js","./termsearch":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\termsearch.js","react":"react"}],"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\search.js":[function(require,module,exports){
 var search=function(tofind) {
 	var out=[];
 	for (var i=0;i<dictdata.length;i++) {
 		var entry=dictdata[i].entry;
-		if (~entry.indexOf(tofind)) out.push(entry);
+		if (~entry.indexOf(tofind)) out.push([entry,i]);
 	}
 	return out;
 }
 module.exports=search;
-},{}],"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\store.js":[function(require,module,exports){
+},{}],"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\store.js":[function(require,module,exports){
 var Reflux=require("reflux");
 var actions=require("./actions");
 var store=Reflux.createStore({
 	listenables:actions
 	,data:[]
-	,onShowDef:function(term) {
-		var def=dictdata[0].tdefinitions;
+	,onShowDef:function(termpos) {
+		var def=dictdata[termpos].tdefinitions;
 		this.trigger(def); 
 	}
 });
 
 module.exports=store;
-},{"./actions":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\actions.js","reflux":"C:\\ksana2015\\node_modules\\reflux\\index.js"}],"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\termsearch.js":[function(require,module,exports){
+},{"./actions":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\actions.js","reflux":"D:\\ksana2015\\node_modules\\reflux\\index.js"}],"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\termsearch.js":[function(require,module,exports){
 var React=require("react");
 var search=require("./search");
 var actions=require("./actions");
@@ -2015,15 +2072,17 @@ var TermSearch=React.createClass({displayName: "TermSearch",
 	getInitialState:function() {
 		return {
 			tofind:""
-			,matches:["abc","xyz"]};
+			,matches:[" term1"," term2"]
+			,value:""
+		};
 	}
 	,showdef:function(e) {
-		var term=e.target.innerHTML;
-		actions.showDef(term);
+		var termpos=e.target.value;
+		actions.showDef(termpos);
 	}
 	,renderItem : function(item) {
 		return React.createElement("div", {
-		style: styles.item, onClick: this.showdef}, item)
+		style: styles.item, onClick: this.showdef, value: item[1]}, item[0])
 	}
 	,search:function() {
 		var matches=search(this.state.tofind);
@@ -2044,5 +2103,5 @@ var TermSearch=React.createClass({displayName: "TermSearch",
 	}
 });
 module.exports=TermSearch;
-},{"./actions":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\actions.js","./search":"C:\\ksana2015\\tibetan_chinese_dict_input\\src\\search.js","react":"react"}]},{},["C:\\ksana2015\\tibetan_chinese_dict_input\\index.js"])
+},{"./actions":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\actions.js","./search":"D:\\ksana2015\\tibetan_chinese_dict_react\\src\\search.js","react":"react"}]},{},["D:\\ksana2015\\tibetan_chinese_dict_react\\index.js"])
 //# sourceMappingURL=bundle.js.map
